@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "1dc39830-6fba-493e-b9a6-7aa00600559a",
+		"name": "Product App API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "498538",
+		"_collection_link": "https://orange-shuttle-363749.postman.co/workspace/e64daf74-fd1a-4b70-baf9-fac98ba1c628/collection/498538-1dc39830-6fba-493e-b9a6-7aa00600559a?action=share&source=collection_link&creator=498538"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"defaultUser\",\n\t\"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": "Authenticate a user and retrieve an API token."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer fEEGPvgiGiY86vLt3bs9eqfcANcK15EPSbKWudLv"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Sample Product\",\n\t\"product_type_id\": 1,\n\t\"amount\": 10,\n\t\"creation_date\": \"2023-08-15\",\n\t\"expiration_date\": \"2023-12-15\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/products",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Create a new product."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer fEEGPvgiGiY86vLt3bs9eqfcANcK15EPSbKWudLv"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\":3,\r\n    \"creation_date\": \"2023-08-10\",\r\n    \"expiration_date\": \"2023-12-15\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/products/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"1"
+					]
+				},
+				"description": "Update an existing product."
+			},
+			"response": []
+		},
+		{
+			"name": "Check if Product is Expired",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer fEEGPvgiGiY86vLt3bs9eqfcANcK15EPSbKWudLv"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/products/1/is-expired",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"1",
+						"is-expired"
+					]
+				},
+				"description": "Check if a product is expired."
+			},
+			"response": []
+		},
+		{
+			"name": "Check if Product is in Stock",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer fEEGPvgiGiY86vLt3bs9eqfcANcK15EPSbKWudLv"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/products/1/is-in-stock",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"1",
+						"is-in-stock"
+					]
+				},
+				"description": "Check if a product is in stock."
+			},
+			"response": []
+		}
+	]
+}

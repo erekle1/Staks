@@ -4,33 +4,40 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     /**
      * Store a newly created product in the database.
      *
-     * @param  \App\Http\Requests\StoreProductRequest  $request
+     * @param \App\Http\Requests\StoreProductRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function store(StoreProductRequest $request) : JsonResponse
+    public function store(StoreProductRequest $request): JsonResponse
     {
-        $product = Product::create($request->validated());
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+
+        $product = Product::create($data);
+
+
         return response()->json([
             'status' => 'success',
-            'data' => new ProductResource($product)
+            'data'   => new ProductResource($product)
         ], 201);
     }
 
     /**
      * Check if the product is expired.
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
      */
     public function isExpired(int $id): JsonResponse
@@ -43,7 +50,7 @@ class ProductController extends Controller
     /**
      * Check if the product is in stock and return its type.
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
      */
     public function isInStock(int $id): JsonResponse
@@ -52,8 +59,8 @@ class ProductController extends Controller
         $isInStock = $product->amount > 0;
         return response()->json([
             'status' => 'success',
-            'data' => [
-                'is_in_stock' => $isInStock,
+            'data'   => [
+                'is_in_stock'  => $isInStock,
                 'product_type' => $product->productType->title
             ]
         ]);
@@ -63,17 +70,17 @@ class ProductController extends Controller
     /**
      * Update the specified product in the database.
      *
-     * @param  StoreProductRequest  $request
-     * @param  int  $id
+     * @param UpdateProductRequest $request
+     * @param int $id
      * @return JsonResponse
      */
-    public function update(StoreProductRequest $request, int $id): JsonResponse
+    public function update(UpdateProductRequest $request, int $id): JsonResponse
     {
         $product = Product::findOrFail($id);
         $product->update($request->validated());
         return response()->json([
             'status' => 'success',
-            'data' => new ProductResource($product)
+            'data'   => new ProductResource($product)
         ]);
     }
 
